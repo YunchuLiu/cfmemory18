@@ -45,7 +45,7 @@ function newGame() {
         alert("Please choose a size!");
     } else {
         // fetch the game board array from the server
-        $.post("http://localhost:8000/new?size=" + size, function (response) {
+        $.post("http://cfmemory18.azurewebsites.net/new?size=" + size, function (response) {
             // store game data * 2 for card number
             gameBoardSize = size * 2;
 
@@ -71,8 +71,8 @@ function restoreGame() {
     cardsFlipped = 0;
 
     // fetch the game state from the server 
-    $.getJSON("http://localhost:8000/game").done(function (response) {
-        console.log(response);
+    $.getJSON("http://cfmemory18.azurewebsites.net/game").done(function (response) {
+        //console.log(response);
         // store game board size
         gameBoardSize = response.length;
 
@@ -138,7 +138,7 @@ function flipCard(card) {
 
             // post this guess to the server and get this card's value
             $.ajax({
-                url: "http://localhost:8000/guess?card=" + selectedCards[0],
+                url: "http://cfmemory18.azurewebsites.net/guess?card=" + selectedCards[0],
                 type: 'PUT',
                 success: function (response) {
                     // display first card value
@@ -155,7 +155,7 @@ function flipCard(card) {
 
             // post this guess to the server and get this card's value
             $.ajax({
-                url: "http://localhost:8000/guess?card=" + selectedCards[1],
+                url: "http://cfmemory18.azurewebsites.net/guess?card=" + selectedCards[1],
                 type: 'PUT',
                 success: function (response) {
                     // display first card value
@@ -179,7 +179,7 @@ function flipCard(card) {
 
                         // check if the user won the game
                         if (cardsFlipped == (gameBoardSize-2)) {
-                            $.get("http://localhost:8000/game", function (data) {
+                            $.get("http://cfmemory18.azurewebsites.net/game", function (data) {
                                 console.log(data);
                                 for (var i=0; i<data.length; i++ ){
                                     if (data[i].cleared=="false") {
